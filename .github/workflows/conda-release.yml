@@ -1,18 +1,44 @@
 name: Release
 
 on:
-  pull_request:
+  release:
+    types: [published]
   push:
-    branches: [build]
+    tags:
+      - 'v*'
 
 jobs:
-  test:
+  build:
+    name: Build package
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - CONFIG: linux_64_mpimpich
+          - CONFIG: linux_64_mpiopenmpi
     steps:
       - uses: actions/checkout@v6
       - name: Build conda package
         uses: prefix-dev/rattler-build-action@v0.2.38
         with:
             recipe-path: ./recipe/recipe.yaml
-            build-args: -m .ci_support/linux_64_mpiopenmpi.yaml
-      - run: ll -lh .
+            artifact-name: package-${{ matrix.config }}
+            build-args: -m .ci_support/${{ matrix.config }}.yaml
+      - name: Show files
+        run: find . -name '*.conda'
+
+  release:
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - name: Download all the dists
+        uses: actions/download-artifact@v8
+        with:
+          name: package-*
+          path: dist
+      - name: Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "dist/*"
