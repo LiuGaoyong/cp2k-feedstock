@@ -18,6 +18,9 @@ jobs:
           - CONFIG: linux_64_mpiopenmpi
     steps:
       - uses: actions/checkout@v6
+      - run: |
+          sed -i "s/-GNinja/-GNinja -DBUILD_SHARED_LIBS=OFF/g" recipe/build.sh;
+          cat recipe/build.sh;
       - name: Build conda package
         uses: prefix-dev/rattler-build-action@v0.2.38
         with:
@@ -33,12 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/')
     steps:
-      - name: Download all the dists
-        uses: actions/download-artifact@v8
-        with:
-          name: package-*
-          path: dist
       - name: Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "dist/*"
+          artifacts: "package-*"
