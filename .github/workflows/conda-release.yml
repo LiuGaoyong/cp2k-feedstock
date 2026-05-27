@@ -30,11 +30,13 @@ jobs:
             --output-dir dist           \
             --recipe recipe/recipe.yaml \
             -m .ci_support/${{ matrix.config }}.yaml
+      - name: List the dists
+        run: |
           ls -lh dist/*
       - uses: actions/upload-artifact@v7
         with:
           name: conda-${{ matrix.config }}
-          path: dist/*.conda
+          path: dist
 
   release:
     needs:
