@@ -10,8 +10,8 @@ package:
   version: ${{ version }}
 
 source:
-  - git_url: https://github.com/${{ name }}/${{ name }}.git
-    git_rev: master
+  - git: https://github.com/${{ name }}/${{ name }}.git
+    rev: master
 
 build:
   number: 9
