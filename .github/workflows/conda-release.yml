@@ -16,7 +16,6 @@ jobs:
     strategy:
       matrix:
         include:
-          # - CONFIG: linux_64_mpimpich
           - CONFIG: linux_64_mpiopenmpi
     steps:
       - uses: actions/checkout@v6
@@ -33,22 +32,6 @@ jobs:
       - name: List the dists
         run: |
           ls -lh dist/*
-      - uses: actions/upload-artifact@v7
-        with:
-          name: conda-${{ matrix.config }}
-          path: dist
-
-  release:
-    needs:
-      - build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download all the dists A
-        uses: actions/download-artifact@v8
-        with:
-          name: conda-*
-          path: dist
-      - run: ls -lh dist/*
       - name: Release & Upload
         if: startsWith(github.ref, 'refs/tags/')
         uses: ncipollo/release-action@v1
