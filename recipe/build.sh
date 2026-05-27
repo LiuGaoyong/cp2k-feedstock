@@ -54,12 +54,6 @@ ln -sf cp2k.psmp "${PREFIX}/bin/cp2k"
 export UCX_TLS=self,tcp
 
 # Run CP2K regression tests
-# >>> $BUILD_PREFIX/TEST-2026-05-27_03-45-14/QS/regtest-tddfpt-bse
-#  │ │     H2O.inp                                                                                  2.1462317           OK (   3.54 sec)
-#  │ │ <<< $BUILD_PREFIX/TEST-2026-05-27_03-45-14/QS/regtest-tddfpt-bse (397 of 399) done in 3.54 sec
-#  │ │ >>> $BUILD_PREFIX/TEST-2026-05-27_03-45-14/QS/regtest-tdwf
-#  │ │     ala2-tdwf.inp                                                                          754.0073855           OK (   8.38 sec)
-#  │ │ <<< $BUILD_PREFIX/TEST-2026-05-27_03-45-14/QS/regtest-tdwf (398 of 399) done in 8.38 sec
 #  │ │ >>> $BUILD_PREFIX/TEST-2026-05-27_03-45-14/QS/regtest-hybrid-ace-gs
 #  │ │     h2o-admm-ace-gpw.inp:E_total                                                          -16.99625144           OK (   2.35 sec)
 #  │ │     h2o-admm-ace-gpw.inp:M072                                                            0.00423932453           OK (   2.35 sec)
@@ -85,26 +79,6 @@ export UCX_TLS=self,tcp
 #  │ │ Summary: correct: 438 / 439; wrong: 1; 21min
 #  │ │ Status: FAILED
 #  │ │ *************************** Testing ended ******************************
-#  │ │ × error Script failed with status 1
-#  │ │ × error 
-#  │ │ × error Script execution failed.
-#  │ │ × error 
-#  │ │ × error   Work directory: /home/runner/work/cp2k-feedstock/cp2k-feedstock/dist/bld/rattler-build_cp2k_1779852526/work
-#  │ │ × error   Prefix: /home/runner/work/cp2k-feedstock/cp2k-feedstock/dist/bld/rattler-build_cp2k_1779852526/host_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold
-#  │ │ × error   Build prefix: /home/runner/work/cp2k-feedstock/cp2k-feedstock/dist/bld/rattler-build_cp2k_1779852526/build_env
-#  │ │ × error 
-#  │ │ × error To run the script manually, use the following command:
-#  │ │ × error 
-#  │ │ × error   cd "/home/runner/work/cp2k-feedstock/cp2k-feedstock/dist/bld/rattler-build_cp2k_1779852526/work" && ./conda_build.sh
-#  │ │ × error 
-#  │ │ × error To run commands interactively in the build environment:
-#  │ │ × error 
-#  │ │ × error   cd "/home/runner/work/cp2k-feedstock/cp2k-feedstock/dist/bld/rattler-build_cp2k_1779852526/work" && source build_env.sh
-#  │ │
-#  │ ╰─────────────────── (took 37 minutes)
-#  │
-#  ╰─────────────────── (took 38 minutes)
-# Error:   × Script failed to execute
 export CP2K_DATA_DIR="${PREFIX}/share/cp2k/data"
 export OMP_STACKSIZE=256M
 "${PWD}/tests/do_regtest.py" "${PREFIX}/bin" "psmp" \
