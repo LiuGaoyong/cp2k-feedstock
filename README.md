@@ -1,3 +1,16 @@
+Note
+=====
+
+This is a branch for building the latest nightly version of CP2K.
+ This branch will never submit PRs to the upstream main branch;
+ it will be automatically built via GitHub Actions, and
+ the relevant files will be uploaded to releases.
+
+> How to use the pre-compile conda package
+```bash
+
+```
+
 About cp2k-feedstock
 ====================
 

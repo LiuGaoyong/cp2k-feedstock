@@ -18,25 +18,36 @@ jobs:
           - CONFIG: linux_64_mpiopenmpi
     steps:
       - uses: actions/checkout@v6
-      - run: |
-          sed -i "s/-GNinja/-GNinja -DBUILD_SHARED_LIBS=OFF/g" recipe/build.sh;
-          cat recipe/build.sh;
-      - name: Build conda package
+      - name: Setup rattler-build
         uses: prefix-dev/rattler-build-action@v0.2.38
         with:
-            recipe-path: ./recipe/recipe.yaml
-            artifact-name: package-${{ matrix.config }}
-            build-args: -m .ci_support/${{ matrix.config }}.yaml
-      - name: Show files
-        run: find . -name '*.conda'
+          setup-only: true
+      - name: Build and upload
+        run: |
+          rattler-build build           \
+            --output-dir dist           \
+            --recipe recipe/recipe.yaml \
+            -m .ci_support/${{ matrix.config }}.yaml
+          ls -lh dist/*
+      - uses: actions/upload-artifact@v7
+        with:
+          name: conda-${{ matrix.config }}
+          path: dist/*.conda
 
   release:
     needs:
       - build
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/')
     steps:
-      - name: Release
+      - name: Download all the dists A
+        uses: actions/download-artifact@v8
+        with:
+          name: conda-*
+          path: dist
+      - run: ls -lh dist/*
+      - name: Release & Upload
+        if: startsWith(github.ref, 'refs/tags/')
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "package-*"
+          allowUpdates: false
+          artifacts: "dist/*"
