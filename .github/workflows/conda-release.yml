@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - CONFIG: linux_64_mpimpich
+          # - CONFIG: linux_64_mpimpich
           - CONFIG: linux_64_mpiopenmpi
     steps:
       - uses: actions/checkout@v6
