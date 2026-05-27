@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: cp2k
-  version: "2026.1"
+  version: "2026.05.27"
   mpi_prefix: "mpi_${{ mpi }}"
 
 package:
@@ -10,11 +10,10 @@ package:
   version: ${{ version }}
 
 source:
-  - git: https://github.com/${{ name }}/${{ name }}.git
-    rev: master
+  - url: https://github.com/cp2k/cp2k/archive/f506c3be655993367ada9324c884b599c83f3cf6.zip
 
 build:
-  number: 9
+  number: 0
   script: build.sh
   string: mpi_${{ mpi }}_h${{ hash }}_${{ build_number }}
   skip:
