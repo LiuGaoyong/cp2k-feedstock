@@ -34,7 +34,7 @@ requirements:
     - ${{ mpi }}
     - "dbcsr >=2.9 *${{ mpi_prefix }}_*"
     - "fftw * *${{ mpi_prefix }}_*"
-    - hdf5
+    - "hdf5 * *${{ mpi_prefix }}_*"
     - libint
     - libint-fortran-devel
     - "libtorch >=2.7.1 *cpu_*"
