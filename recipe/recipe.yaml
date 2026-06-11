@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: cp2k
-  version: "2026.05.27"
+  version: "2026.06.11"
   mpi_prefix: "mpi_${{ mpi }}"
 
 package:
@@ -47,7 +47,7 @@ requirements:
     - "spfft * ${{ mpi_prefix }}_*"
     - "spla * ${{ mpi_prefix }}_*"
     - spglib
-#   - tblite
+    #   - tblite
     - trexio
     - if: mpi == "openmpi"
       then:
