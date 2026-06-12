@@ -18,8 +18,8 @@ jobs:
         include:
           - CONFIG: linux_64_hdf51.14.6mpiopenmpi
           - CONFIG: linux_64_hdf52mpiopenmpi
-          - CONFIG: linux_64_hdf52mpimpich
-          - CONFIG: linux_64_hdf51.14.6mpimpich
+          # - CONFIG: linux_64_hdf52mpimpich
+          # - CONFIG: linux_64_hdf51.14.6mpimpich
     steps:
       - uses: actions/checkout@v6
       - name: Setup rattler-build
